@@ -1,0 +1,38 @@
+﻿@page "/Names"
+
+<PageTitle>Names</PageTitle>
+
+
+<h3>Names</h3>
+
+<EditForm Model="model" OnValidSubmit="ValidSubmission">
+	<DataAnnotationsValidator />
+	<ValidationSummary />
+	<label for="firstName" class="form-label">@nameof(model.FirstName)</label>
+	<InputText id="firstName" @bind-Value="model.FirstName" class="form-control" />
+
+	<label for="lastName" class="form-label">@nameof(model.LastName)</label>
+	<InputText id="lastName" @bind-Value="model.LastName" class="form-control" />
+
+
+	<button class="btn btn-primary" type="submit">Submit</button>
+</EditForm>
+
+<h3>List of Names</h3>
+<ul>
+	@foreach (var name in names)
+	{
+		<li>@name.FirstName @name.LastName</li>
+	}
+</ul>
+
+@code {
+	private NameModel  model = new();
+	private List<NameModel> names = new();
+
+	private void ValidSubmission()
+	{
+		names.Add(model);
+		model = new();
+	}
+}

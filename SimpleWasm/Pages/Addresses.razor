@@ -1,0 +1,44 @@
+﻿@page "/Addresses"
+
+<PageTitle>Addresses</PageTitle>
+
+
+<h3>Addresses</h3>
+
+<EditForm Model="model" OnValidSubmit="ValidSubmission">
+	<DataAnnotationsValidator />
+	<ValidationSummary />
+	<label for="streetAddress" class="form-label">@nameof(model.StreetAddress)</label>
+	<InputText id="streetAddress" @bind-Value="model.StreetAddress" class="form-control" />
+
+	<label for="city" class="form-label">@nameof(model.City)</label>
+	<InputText id="city" @bind-Value="model.City" class="form-control" />
+
+	<label for="state" class="form-label">@nameof(model.State)</label>
+	<InputText id="state" @bind-Value="model.State" class="form-control" />
+
+	<label for="zipCode" class="form-label">@nameof(model.ZipCode)</label>
+	<InputText id="zipCode" @bind-Value="model.ZipCode" class="form-control" />
+
+
+	<button class="btn btn-primary" type="submit">Submit</button>
+</EditForm>
+
+<h3>List of Addresses</h3>
+<ul>
+	@foreach (var address in addresses)
+	{
+		<li>@address.StreetAddress, @address.City,  @address.State  @address.ZipCode</li>
+	}
+</ul>
+
+@code {
+	private AddressModel model = new();
+	private List<AddressModel> addresses = new();
+
+	private void ValidSubmission()
+	{
+		addresses.Add(model);
+		model = new();
+	}
+}
